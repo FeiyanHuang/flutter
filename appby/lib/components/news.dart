@@ -28,3 +28,14 @@ class _NewListState extends State<NewsList> {
     );
   }
 }
+
+class _newsRow extends StatelessWidget{
+  final String row;
+  _newsRow(row);
+  @override
+  Widget build(BuildContext context){
+    return new Container(
+
+    );
+  }
+}
