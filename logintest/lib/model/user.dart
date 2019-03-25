@@ -1,3 +1,7 @@
+import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:async';
+import 'dart:convert';
+
 class User {
   var test = {
     "id": "1",
@@ -20,6 +24,13 @@ class User {
 
   void login(String name, String password) async{
     if(test['name'] == name && test['password'] == password){
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      await prefs.setString('user', json.encode({
+        "user":{
+          'name': name,
+          'password':password
+        }
+      }));
       print('成功');
     } else {
       print('失败');
