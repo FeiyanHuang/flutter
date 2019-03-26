@@ -36,7 +36,7 @@ class _LoginPageState extends State<LoginPage>{
     );
   }
   void submit(){
-    User user = new User();
+    UserModel user = new UserModel();
     user.login(_username.text, _password.text);
   }
 }
