@@ -24,11 +24,11 @@ class UserModel with ChangeNotifier {
         }
       }));
       print('成功');
-      BuildContext context;
-      Navigator.push(
-        context,
-        new MaterialPageRoute(builder: (context) => new HomePage()),
-      );
+      // BuildContext context;
+      // Navigator.push(
+      //   context,
+      //   new MaterialPageRoute(builder: (context) => new HomePage()),
+      // );
       // Navigator.pushReplacement(BuildContext context, MaterialPageRoute(builder: (context) => HomePage()),);
     } else {
       print('失败');
