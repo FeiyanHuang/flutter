@@ -70,6 +70,41 @@ class _ListPageState extends State<ListPage> with SingleTickerProviderStateMixin
                           new Text('器械， 1.5吨，40方'),
                           new Text('未接受')
                         ],
+                      ),
+                      new Divider(),
+                      new Column(
+                        children: <Widget>[
+                          new Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,//两端对齐
+                            children: <Widget>[
+                              new Text('浙江省杭州市余杭区'),
+                              new Icon(Icons.phone)
+                            ],
+                          ),
+                          new Row(
+                            children: <Widget>[
+                              new Text('浙江省嘉兴市嘉义区')
+                            ],
+                          )
+                        ],
+                      ),
+                      new Divider(),
+                      new Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,//两端对齐
+                        children: <Widget>[
+                          new Text('起运时间 2018-11-01'),
+                          new RaisedButton(
+                            onPressed: (){
+                              print('aa');
+                            },
+                            child: Text("确认接受"),
+                            color: Color.fromRGBO(79, 123, 254,1),
+                            textColor: Colors.white,
+                            // splashColor: Colors.black,
+                            // highlightColor: Colors.green,
+                            // elevation: 30,
+                          )
+                        ],
                       )
                     ],
                   ),
