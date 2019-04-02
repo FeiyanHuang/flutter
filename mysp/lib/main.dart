@@ -26,9 +26,10 @@ void main() async {
 
 Future<bool> getLocalUser() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
-  String token = prefs.getString("user");
-  if(token != null){
+  String user = prefs.getString("user");
+  if(user != null){
     print('已存在');
+    print(user);
     return true;
   }else{
     print('未存在');

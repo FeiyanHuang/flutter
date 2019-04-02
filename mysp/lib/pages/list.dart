@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ListPage extends StatefulWidget{
   @override
@@ -16,6 +17,7 @@ class _ListPageState extends State<ListPage> with SingleTickerProviderStateMixin
 
   @override
   void initState() {
+    super.initState();
     controllerTop = new TabController(vsync: this, length: 3);
   }
 
@@ -24,6 +26,63 @@ class _ListPageState extends State<ListPage> with SingleTickerProviderStateMixin
     // controllerTop.dispose();
     super.dispose();
   }
+
+  void show(){
+    showDialog<Null>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return new SimpleDialog(
+          contentPadding: EdgeInsets.only(top:16.0),
+          // title: new Text('联系业务员'),
+          children: <Widget>[
+            new Column(
+              children: <Widget>[
+                new Center(
+                  child: new Text('联系业务员'),
+                ),
+                new Padding(
+                  padding: EdgeInsets.all(6.0),
+                ),
+                new Center(
+                  child: new Text('188-2677-2562'),
+                )
+              ],
+            ),
+            new Padding(
+              padding: EdgeInsets.all(6.0),
+            ),
+            new Divider(),
+            new Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                new FlatButton (
+                  child: new Text('取消'),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+                new Container(
+                  height: 40.0,
+                  width: 1.0,
+                  color: Colors.grey,
+                  margin: const EdgeInsets.only(left: 10.0, right: 10.0),
+                ),
+                new FlatButton (
+                  child: new Text('立刻呼叫'),
+                  onPressed: () {
+                    launch("tel://17858952904");
+                  },
+                ),
+              ],
+            )
+          ],
+        );
+      },
+    ).then((val) {
+        print(val);
+    });
+  } 
   @override
   Widget build(BuildContext context){
     return Scaffold(
@@ -57,15 +116,18 @@ class _ListPageState extends State<ListPage> with SingleTickerProviderStateMixin
               children: <Widget>[
                 // new Text('a'),
                 new Container(
-                  color: Colors.white,
+                  // color: Colors.white,
                   margin: EdgeInsets.all(10.0),
-                  // decoration: BoxDecoration(
-                  //   color: Colors.red,
-                  // ),
+                  padding: EdgeInsets.all(10.0),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                    boxShadow: [BoxShadow(blurRadius: 2.0, offset: Offset(0, 2), color: Color.fromRGBO(51, 146, 253, 0.3))],
+                  ),
                   child: Column(
                     children: <Widget>[
                       new Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,//两端对齐
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
                           new Text('器械， 1.5吨，40方'),
                           new Text('未接受')
@@ -75,10 +137,16 @@ class _ListPageState extends State<ListPage> with SingleTickerProviderStateMixin
                       new Column(
                         children: <Widget>[
                           new Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,//两端对齐
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
                               new Text('浙江省杭州市余杭区'),
-                              new Icon(Icons.phone)
+                              new IconButton(
+                                icon: Icon(Icons.phone),
+                                onPressed: () {
+                                  show();
+                                },
+                              )
+                              // new Icon(Icons.phone)
                             ],
                           ),
                           new Row(
@@ -90,7 +158,7 @@ class _ListPageState extends State<ListPage> with SingleTickerProviderStateMixin
                       ),
                       new Divider(),
                       new Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,//两端对齐
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
                           new Text('起运时间 2018-11-01'),
                           new RaisedButton(
@@ -100,9 +168,6 @@ class _ListPageState extends State<ListPage> with SingleTickerProviderStateMixin
                             child: Text("确认接受"),
                             color: Color.fromRGBO(79, 123, 254,1),
                             textColor: Colors.white,
-                            // splashColor: Colors.black,
-                            // highlightColor: Colors.green,
-                            // elevation: 30,
                           )
                         ],
                       )

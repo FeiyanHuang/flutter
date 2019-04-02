@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import '../model/user.dart';
 import 'package:provide/provide.dart';
 import './home.dart';
+import '../components/code.dart';
+import '../components/pwd.dart';
+import './register.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -10,25 +13,23 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   bool _pwd = true;
-  TextEditingController _userphone = new TextEditingController();
-  TextEditingController _password = new TextEditingController();
+  // TextEditingController _userphone = new TextEditingController();
+  // TextEditingController _password = new TextEditingController();
   final GlobalKey<ScaffoldState> scaffoldKey = new GlobalKey();
 
-  void pwdSubmit() {
-    print('here');
-    getUserByPwd(_userphone.text, _password.text).then((User user){
+  void pwdSubmit(phone, password) {
+    getUserByPwd(phone, password).then((User user){
       Provide.value<UserModel>(context).login(user);
       Future.delayed(const Duration(microseconds: 500), (){
         Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomePage()),);
       });
-      print('here');
     }).catchError((e){
       scaffoldKey.currentState.showSnackBar(SnackBar(backgroundColor: Colors.deepOrange, content: Text('登录失败')));
     });
   }
 
-  void codeSubmit() {
-    print(_userphone.text);
+  void codeSubmit(name, pwd) {
+    print(name);
   }
 
   @override
@@ -117,228 +118,35 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
             
-            _pwd ? pwd(): code(),
+            // _pwd ? pwd(): code(),
+            _pwd ? PwdComponents(
+              pwdSubmit: this.pwdSubmit,
+            ): CodeComponents(
+              codeSubmit: this.codeSubmit,
+            ),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,//开头对齐
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                GestureDetector(
+                    child: Text(
+                    '注册司机',
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Color.fromRGBO(79, 123, 254,1),
+                    )
+                  ),
+                  onTap: (){
+                    // print('注册');
+                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => RegisterPage()),);
+                  },
+                )
+              ],
+            ),
           ],
         ),
       ),
       )
-    );
-  }
-
-  Widget code() {
-    return Container(
-      child: Column(
-        children: <Widget>[
-          Row(
-            children: <Widget>[
-              Expanded(
-                flex: 1, 
-                child:TextField(
-                  controller: _userphone,
-                  decoration: InputDecoration(
-                    contentPadding: EdgeInsets.all(10.0),
-                    labelText: '请输入手机号',
-                  ),
-                )
-              )
-            ],
-          ),
-          Row(
-            children: <Widget>[
-              Expanded(
-                flex: 1, 
-                child:TextField(
-                  controller: _password,
-                  obscureText: true,
-                  decoration: InputDecoration(
-                    contentPadding: EdgeInsets.all(10.0),
-                    labelText: '请输入验证码',
-                  ),
-                )
-              ),
-              Column(
-                children: <Widget>[
-                  Text('获取验证码'),
-                ],
-              ),
-            ],
-          ),
-          Row(
-            children: <Widget>[
-              new Expanded(
-                child: 
-                  Padding(padding: new EdgeInsets.fromLTRB(10.0, 10.0, 0.0, 10.0),)
-              ),
-            ],
-          ),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.end,//开头对齐
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: <Widget>[
-              Text(
-                '忘记密码？',
-              ),
-            ],
-          ),
-          Row(
-            children: <Widget>[
-              new Expanded(
-                child: 
-                  Padding(padding: new EdgeInsets.fromLTRB(10.0, 10.0, 0.0, 10.0),)
-              ),
-            ],
-          ),
-          Row(
-            children: <Widget>[
-              new Expanded(child:
-                new RaisedButton(
-                  onPressed: (){
-                    codeSubmit();
-                  },
-                  child: new Padding(padding: new EdgeInsets.fromLTRB(10.0, 10.0, 0.0, 10.0),
-                  child: new Text(  
-                      "登录", 
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: Colors.white
-                        )
-                    ),
-                  ),
-                  color: Color.fromRGBO(79, 123, 254,1),
-                  // borderRadius: BorderRadius.circular(20.0),
-                ),
-              ),
-            ],
-          ),
-          Row(
-            children: <Widget>[
-              new Expanded(
-                child: 
-                  Padding(padding: new EdgeInsets.fromLTRB(10.0, 10.0, 0.0, 10.0),)
-              ),
-            ],
-          ),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.center,//开头对齐
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Text(
-                '注册司机',
-                style: TextStyle(
-                  fontSize: 16,
-                  color: Color.fromRGBO(79, 123, 254,1),
-                )
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget pwd() {
-    return Container(
-      child: Column(
-        children: <Widget>[
-          Row(
-            children: <Widget>[
-              Expanded(
-                flex: 1, 
-                child:TextField(
-                  controller: _userphone,
-                  decoration: InputDecoration(
-                    contentPadding: EdgeInsets.all(10.0),
-                    labelText: '请输入手机号',
-                  ),
-                )
-              )
-            ],
-          ),
-          Row(
-            children: <Widget>[
-              Expanded(
-                flex: 1, 
-                child:TextField(
-                  controller: _password,
-                  obscureText: true,
-                  decoration: InputDecoration(
-                    contentPadding: EdgeInsets.all(10.0),
-                    labelText: '请输入密码',
-                  ),
-                )
-              )
-            ],
-          ),
-          Row(
-            children: <Widget>[
-              new Expanded(
-                child: 
-                  Padding(padding: new EdgeInsets.fromLTRB(10.0, 10.0, 0.0, 10.0),)
-              ),
-            ],
-          ),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.end,//开头对齐
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: <Widget>[
-              Text(
-                '忘记密码？',
-              ),
-            ],
-          ),
-          Row(
-            children: <Widget>[
-              new Expanded(
-                child: 
-                  Padding(padding: new EdgeInsets.fromLTRB(10.0, 10.0, 0.0, 10.0),)
-              ),
-            ],
-          ),
-          Row(
-            children: <Widget>[
-              new Expanded(child:
-                new RaisedButton(
-                  onPressed: (){
-                    pwdSubmit();
-                  },
-                  child: new Padding(padding: new EdgeInsets.fromLTRB(10.0, 10.0, 0.0, 10.0),
-                  child: new Text(  
-                      "登录", 
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: Colors.white
-                        )
-                    ),
-                  ),
-                  color: Color.fromRGBO(79, 123, 254,1),
-                  // borderRadius: BorderRadius.circular(20.0),
-                ),
-              ),
-            ],
-          ),
-          Row(
-            children: <Widget>[
-              new Expanded(
-                child: 
-                  Padding(padding: new EdgeInsets.fromLTRB(10.0, 10.0, 0.0, 10.0),)
-              ),
-            ],
-          ),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.center,//开头对齐
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Text(
-                '注册司机',
-                style: TextStyle(
-                  fontSize: 16,
-                  color: Color.fromRGBO(79, 123, 254,1),
-                )
-              ),
-            ],
-          ),
-        ],
-      ),
     );
   }
 }
