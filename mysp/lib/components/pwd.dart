@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../pages/reset.dart';
 
 class PwdComponents extends StatefulWidget{
   PwdComponents({Key key, this.pwdSubmit}):super(key: key);
@@ -61,9 +62,14 @@ class _PwdComponentsState extends State<PwdComponents> with SingleTickerProvider
             crossAxisAlignment: CrossAxisAlignment.end,//开头对齐
             mainAxisAlignment: MainAxisAlignment.end,
             children: <Widget>[
-              Text(
-                '忘记密码？',
-              ),
+              GestureDetector(
+                onTap: (){
+                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => PasswordPage()),);
+                },
+                child: Text(
+                  '忘记密码？',
+                ),
+              )
             ],
           ),
           Row(
