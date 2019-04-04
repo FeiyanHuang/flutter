@@ -30,6 +30,7 @@ class _PwdComponentsState extends State<PwdComponents> with SingleTickerProvider
                   decoration: InputDecoration(
                     contentPadding: EdgeInsets.all(10.0),
                     labelText: '请输入手机号',
+                    
                   ),
                 )
               )
@@ -52,9 +53,9 @@ class _PwdComponentsState extends State<PwdComponents> with SingleTickerProvider
           ),
           Row(
             children: <Widget>[
-              new Expanded(
+              Expanded(
                 child: 
-                  Padding(padding: new EdgeInsets.fromLTRB(10.0, 10.0, 0.0, 10.0),)
+                  Padding(padding: EdgeInsets.fromLTRB(10.0, 10.0, 0.0, 10.0),)
               ),
             ],
           ),
@@ -64,7 +65,8 @@ class _PwdComponentsState extends State<PwdComponents> with SingleTickerProvider
             children: <Widget>[
               GestureDetector(
                 onTap: (){
-                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => PasswordPage()),);
+                  Navigator.push(context, new MaterialPageRoute(builder: (context) => new PasswordPage()));
+                  // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => PasswordPage()),);
                 },
                 child: Text(
                   '忘记密码？',

@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import '../model/user.dart';
+import 'package:provide/provide.dart';
+import './login.dart';
 
 class MyPage extends StatefulWidget{
   @override
@@ -136,6 +139,22 @@ class _MyPageState extends State<MyPage> with SingleTickerProviderStateMixin{
                       new Text('设置'),
                       new Text('>')
                     ],
+                  )
+                ],
+              ),
+            ),
+            Container(
+              child: Row(
+                children: <Widget>[
+                  Expanded(
+                    child: new RaisedButton(
+                      onPressed: (){
+                        // print('退出');
+                        Provide.value<UserModel>(context).logout();
+                        Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => LoginPage()), (Route<dynamic> route) => false);
+                      },
+                      child: Text('退出'),
+                    ),
                   )
                 ],
               ),

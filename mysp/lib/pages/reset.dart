@@ -78,6 +78,32 @@ class _PasswordPageState extends State<PasswordPage> {
                   ),
                 ],
               ),
+            ),
+            new Container(
+              padding: EdgeInsets.all(10.0),
+              margin: EdgeInsets.only(top: 20.0),
+              child: Row(
+                children: <Widget>[
+                  new Expanded(child:
+                    new RaisedButton(
+                      onPressed: (){
+                        print('下一步');
+                      },
+                      child: new Padding(padding: new EdgeInsets.fromLTRB(10.0, 10.0, 0.0, 10.0),
+                      child: new Text(  
+                          "下一步", 
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: Colors.white
+                            )
+                        ),
+                      ),
+                      color: Color.fromRGBO(79, 123, 254,1),
+                      // borderRadius: BorderRadius.circular(20.0),
+                    ),
+                  ),
+                ],
+              ),
             )
           ],
         ),

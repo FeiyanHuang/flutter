@@ -13,8 +13,6 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   bool _pwd = true;
-  // TextEditingController _userphone = new TextEditingController();
-  // TextEditingController _password = new TextEditingController();
   final GlobalKey<ScaffoldState> scaffoldKey = new GlobalKey();
 
   void pwdSubmit(phone, password) {
@@ -38,8 +36,8 @@ class _LoginPageState extends State<LoginPage> {
       key: scaffoldKey,
       body: SingleChildScrollView(
         child: Container(
-        margin: EdgeInsets.only(top: 40),
-        padding: EdgeInsets.all(20),
+        margin: EdgeInsets.only(top: 60, left: 30, right: 30),
+        // padding: EdgeInsets.all(20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,//开头对齐
           mainAxisAlignment: MainAxisAlignment.start,
@@ -47,78 +45,78 @@ class _LoginPageState extends State<LoginPage> {
             Text(
               'MeYoung',
             ),
-            Text(
-              '欢迎登录米多多',
-              style: new TextStyle(
-                color: Colors.black,
-                fontSize: 20.0,
-              )
-            ),
             Container(
-              margin: EdgeInsets.only(top: 40, bottom: 20),
+              margin: EdgeInsets.only(top: 90, bottom: 20),
+              decoration: BoxDecoration(
+                border: Border(
+                  bottom: BorderSide(
+                    color: Color.fromRGBO(102, 102, 102,1),
+                    width: 1.0,
+                  ),
+                )
+              ),
               child: Row(
+                textBaseline: TextBaseline.ideographic,
                 children: <Widget>[
-                  InkWell(
-                    child: new Container(
-                      margin: EdgeInsets.only(right: 20.0),
-                      decoration: new BoxDecoration(
-                        border: new Border(
-                          bottom: BorderSide(
-                            color: !(_pwd??false) ? Colors.grey : Color.fromRGBO(79, 123, 254,1),
-                            width: 3.0,
-                          ),
-                        )
-                      ),
-                      child: new Padding(
-                        padding: new EdgeInsets.all(8.0),                        
-                        child: Text(
-                          '密码登录',
-                          style: new TextStyle(
-                            color: !(_pwd??false) ? Colors.grey : Color.fromRGBO(79, 123, 254,1),
-                          ),
-                        ),
-                      ),
-                    ),  
-                    onTap: () {   
+                  // 密码登入
+                  GestureDetector(
+                    onTap: (){
                       setState(() {
                         _pwd = true;
-                      });                       
-                      // print("pwd");
+                        print(_pwd);
+                      }); 
                     },
-                  ),
-                  InkWell(
-                    child: new Container(
+                    child: Container(
                       margin: EdgeInsets.only(right: 20.0),
-                      decoration: new BoxDecoration(
-                        border: new Border(
+                      height: 34.0,
+                      decoration: _pwd ? BoxDecoration(
+                        border: Border(
                           bottom: BorderSide(
-                            color: _pwd??false ? Colors.grey : Color.fromRGBO(79, 123, 254,1),
-                            width: 3.0,
+                            color: Color.fromRGBO(79, 123, 254,1),
+                            width: 1.0,
                           ),
                         )
-                      ),
-                      child: new Padding(
-                        padding: new EdgeInsets.all(8.0),                        
-                        child: Text(
-                          '验证码登录',
-                          style: new TextStyle(
-                            color: _pwd??false ? Colors.grey : Color.fromRGBO(79, 123, 254,1),
-                          ),
+                      ): null,
+                      child: Text(
+                        '密码登录',
+                        style: TextStyle(
+                          color: !_pwd ? Colors.grey : Color.fromRGBO(79, 123, 254,1),
+                          fontSize: 16.0
                         ),
                       ),
-                    ),  
-                    onTap: () {                          
+                    )
+                  ),
+                  // 验证码登陆
+                  GestureDetector(
+                    onTap: (){
                       setState(() {
                         _pwd = false;
-                      });  
+                        print(_pwd);
+                      }); 
                     },
+                    child: Container(
+                      margin: EdgeInsets.only(right: 20.0),
+                      height: 34.0,
+                      decoration:!_pwd ? BoxDecoration(
+                        border: Border(
+                          bottom: BorderSide(
+                            color: Color.fromRGBO(79, 123, 254,1),
+                            width: 1.0,
+                          ),
+                        )
+                      ) : null,
+                      child: Text(
+                        '验证码登录',
+                        style: TextStyle(
+                          color: _pwd ? Colors.grey : Color.fromRGBO(79, 123, 254,1),
+                          fontSize: 16.0
+                        ),
+                      ),
+                    )
                   ),
-
                 ],
               ),
             ),
-            
-            // _pwd ? pwd(): code(),
             _pwd ? PwdComponents(
               pwdSubmit: this.pwdSubmit,
             ): CodeComponents(
@@ -137,8 +135,7 @@ class _LoginPageState extends State<LoginPage> {
                     )
                   ),
                   onTap: (){
-                    // print('注册');
-                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => RegisterPage()),);
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => RegisterPage()),);
                   },
                 )
               ],
