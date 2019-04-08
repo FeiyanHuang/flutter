@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import '../components/step1.dart';
 
 class RegisterComponent extends StatefulWidget{
   RegisterComponent({Key key, this.step}):super(key: key);
@@ -23,11 +24,19 @@ class _RegisterComponentState extends State<RegisterComponent> with SingleTicker
     });
   }
   
+  void onDataChange(val) {
+    setState(() {
+      _username = val;
+      print(_username);
+    });
+  }
+
   @override
   Widget build(BuildContext context){
     switch(widget.step){
       case 1:
-        return firstStep();
+        // return firstStep(callback: (val) => onDataChange(val));
+        return firstStep(step: _username, change: (val) => onDataChange(val));
         break;
       case 2:
         return secondStep();
@@ -37,118 +46,6 @@ class _RegisterComponentState extends State<RegisterComponent> with SingleTicker
         break;
     }
   }
-
-  Widget firstStep(){
-    return new SingleChildScrollView(
-      child: Column(
-        children: <Widget>[
-          Container(
-            padding: EdgeInsets.all(10.0),
-            color: Colors.white,
-            margin: EdgeInsets.only(top: 20.0, bottom: 20.0),
-            child: Column(
-              children: <Widget>[
-                Row(children: <Widget>[
-                    Container(
-                      width: 100.0,
-                      child: Text(
-                        "姓名",
-                        style: new TextStyle(
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      flex: 1, 
-                      child:TextField(
-                        controller: _username,
-                        decoration: new InputDecoration.collapsed(
-                          hintText:  '请输入姓名',
-                        ),
-                      )
-                    )
-                  ],
-                ),
-                Divider(),
-                Row(children: <Widget>[
-                    Container(
-                      width: 100.0,
-                      child: Text(
-                        "身份证号",
-                        style: new TextStyle(
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      flex: 1, 
-                      child:TextField(
-                        controller: _idcard,
-                        decoration: new InputDecoration.collapsed(
-                          hintText:  '请输入姓名',
-                        ),
-                      )
-                    )
-                  ],
-                ),
-              ],
-            ),
-          ),
-          Container(
-            margin: EdgeInsets.only(top: 6.0),
-            padding: EdgeInsets.all(10.0),
-            color: Colors.white,
-            child: new Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment:  MainAxisAlignment.start,
-              children: <Widget>[
-                new Align(
-                  alignment: Alignment.topLeft,
-                  child: new Text(
-                    '照片上传',
-                  ),
-                ),
-                Padding(padding: EdgeInsets.all(10.0),),
-                new Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    _image == null ?  imageBtn():Image.file(_image),
-                    new GestureDetector(
-                      child: new Container(
-                        width: 80.0,
-                        height: 80.0,
-                        // margin: EdgeInsets.only(right: 20.0),
-                        decoration: BoxDecoration(
-                          // color: Color.fromRGBO(79, 123, 254,1),
-                          borderRadius: BorderRadius.all(Radius.circular(4.0)),
-                          border: Border.all(color: Colors.grey)
-                          // boxShadow: [BoxShadow(blurRadius: 2.0, offset: Offset(0, 2), color: Color.fromRGBO(51, 146, 253, 0.3))],
-                        ),
-                        child: new Text('身份证反面'),
-                      ),
-                    ),
-                    new GestureDetector(
-                      child: new Container(
-                        width: 80.0,
-                        height: 80.0,
-                        // margin: EdgeInsets.only(right: 20.0),
-                        decoration: BoxDecoration(
-                          // color: Color.fromRGBO(79, 123, 254,1),
-                          borderRadius: BorderRadius.all(Radius.circular(4.0)),
-                          border: Border.all(color: Colors.grey)
-                          // boxShadow: [BoxShadow(blurRadius: 2.0, offset: Offset(0, 2), color: Color.fromRGBO(51, 146, 253, 0.3))],
-                        ),
-                        child: new Text('驾驶证'),
-                      ),
-                    ),
-                  ],
-                ),
-                new Padding(padding: EdgeInsets.all(10.0),),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  } 
 
   Widget secondStep(){
     return new SingleChildScrollView(

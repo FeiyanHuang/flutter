@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import '../components/rstep.dart';
+import '../components/step1.dart';
+// import '../components/rstep.dart';
 
 class RegisterPage extends StatefulWidget{
   @override
@@ -7,187 +8,120 @@ class RegisterPage extends StatefulWidget{
 }
 
 class _RegisterPageState extends State<RegisterPage> with SingleTickerProviderStateMixin{
-  TabController rcontroller;
   int step = 1;
+  String username;
+  String idcard;
+
   @override
   void initState() {
     super.initState();
-    rcontroller = new TabController(vsync: this, length: 3);
   }
 
   @override
   void dispose() {
-    rcontroller.dispose();
     super.dispose();
   }
-  
+
+  void onDataChange(val) {
+    setState(() {
+      username = val['username'];
+      idcard = val['idcard'];
+      step = 2;
+    });
+  }
+
   @override
   Widget build(BuildContext context){
     return Scaffold(
-      appBar: new AppBar(
+      appBar: AppBar(
         backgroundColor: Colors.white,
-        title: new Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: <Widget>[
-            new RaisedButton(
-              child: new Text('back'),
-              onPressed: (){
-                Navigator.pop(context);
-              },
-            ),
-            // new IconButton(
-            //   icon: new Icon(Icons.arrow_back),
-            //   onPressed: (){
-            //     Navigator.of(context).pop();
-            //   },
-            // ),
-            // new BackButton(),
-            new Align(
-              alignment: Alignment.center,
-              child: new Text(
-                '身份认证',
-                style: new TextStyle(
-                  color: Colors.black
-                ),
-              )
-            )
-          ],
-        )
+        leading: GestureDetector(
+          child: Icon(
+            Icons.arrow_back_ios,
+            color: Color.fromRGBO(51, 51, 51, 1),  
+          ),
+          onTap: (){
+            Navigator.pop(context);
+          },
+        ),
+        centerTitle: true,
+        title: Text(
+          step == 1 ? '身份认证': (step == 2 ? '车辆认证' : '审核'),
+          style: TextStyle(
+            color: Color.fromRGBO(51, 51, 51, 1),
+            fontSize: 18.0
+          ),
+        ),
+        elevation: 1.0,
       ),
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
-            new Container(
+            Container(
               margin: EdgeInsets.only(top: 10.0),
               color: Colors.white,
               padding: EdgeInsets.all(20.0),
-              child: new Row(
+              child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  GestureDetector(
-                    onTap: (){
-                      setState(() {
-                        step = 1;
-                      });
-                    },
-                    child: Container(
-                      width: 20.0,
-                      height: 20.0,
-                      decoration: BoxDecoration(
-                        color: step == 1 ? Color.fromRGBO(79, 123, 254,1):Colors.grey,
-                        borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                        // boxShadow: [BoxShadow(blurRadius: 2.0, offset: Offset(0, 2), color: Color.fromRGBO(51, 146, 253, 0.3))],
-                      ),
-                      child: Center(
-                        child: new Text(
-                          '1',
-                          style: new TextStyle(
-                            color: Colors.white
-                          ),
-                        ),
-                      )
-                    ),
-                  ),
-                  Divider(),
-                  GestureDetector(
-                    onTap: (){
-                      setState(() {
-                        step = 2;
-                      });
-                    },
-                    child: Container(
-                      width: 20.0,
-                      height: 20.0,
-                      decoration: BoxDecoration(
-                        color: step == 2 ? Color.fromRGBO(79, 123, 254,1):Colors.grey,
-                        // color: Color.fromRGBO(79, 123, 254,1),
-                        borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                        // boxShadow: [BoxShadow(blurRadius: 2.0, offset: Offset(0, 2), color: Color.fromRGBO(51, 146, 253, 0.3))],
-                      ),
-                      child: Center(
-                        child: new Text(
-                          '2',
-                          style: new TextStyle(
-                            color: Colors.white
-                          ),
-                        ),
-                      )
-                    ),
-                  ),
-                  Divider(),
-                  GestureDetector(
-                    onTap: (){
-                      setState(() {
-                        step = 3;
-                      });
-                    },
-                    child: Container(
-                      width: 20.0,
-                      height: 20.0,
-                      decoration: BoxDecoration(
-                        color: step == 3 ? Color.fromRGBO(79, 123, 254,1):Colors.grey,
-                        // color: Color.fromRGBO(79, 123, 254,1),
-                        borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                        // boxShadow: [BoxShadow(blurRadius: 2.0, offset: Offset(0, 2), color: Color.fromRGBO(51, 146, 253, 0.3))],
-                      ),
-                      child: Center(
-                        child: new Text(
-                          '3',
-                          style: new TextStyle(
-                            color: Colors.white
-                          ),
-                        ),
-                      )
-                    ),
-                  ),
+                  stepBox(1, '身份认证'),
+                  Expanded(child: Divider(color: Color.fromRGBO(79, 123, 254,1),),),
+                  stepBox(2, '车辆认证'),
+                  Expanded(child: Divider(color: Color.fromRGBO(79, 123, 254,1),),),
+                  stepBox(3, ' 审核 '),
                 ],
               )
             ),
             Container(
-              child: RegisterComponent(step: step),
+              child: step == 1 ? firstStep(step: step,change: (val) => onDataChange(val)): (step == 2 ? firstStep() : firstStep()),
             ),
-            Container(
-              padding: EdgeInsets.all(10.0),
-              child: new Row(
-                children: <Widget>[
-                  new Expanded(child:
-                    step == 3 ? new Text('') : new RaisedButton(
-                      onPressed: (){
-                        setState(() {
-                          if(step<3){
-                            step++;
-                          } else {
-                            step = 1;
-                          }
-                        });
-                      },
-                      child: new Padding(padding: new EdgeInsets.fromLTRB(10.0, 10.0, 0.0, 10.0),
-                      child: new Text(  
-                          "下一步", 
-                          style: TextStyle(
-                            fontSize: 16,
-                            color: Colors.white
-                            )
-                        ),
-                      ),
-                      color: Color.fromRGBO(79, 123, 254,1),
-                      // borderRadius: BorderRadius.circular(20.0),
-                    ),
-                  ),
-                ],
-              ),
-            )
           ],
         ),
       ),
-      // body: TabBarView(
-      //   controller: rcontroller,
-      //   children: <Widget>[
-      //     RegisterComponent(), //new Text('1'),
-      //     new Text('2'),
-      //     new Text('3'),
-      //   ],
-      // ),
+    );
+  }
+
+  Widget stepBox(int id, String text) {
+    return GestureDetector(
+      onTap: (){
+        setState(() {
+          step = id;
+        });
+      },
+      child: Column(
+       children: <Widget>[
+         Container(
+          width: 20.0,
+          height: 20.0,
+          decoration: BoxDecoration(
+            color: step == id ? Color.fromRGBO(79, 123, 254,1):Colors.grey,
+            borderRadius: BorderRadius.all(Radius.circular(10.0)),
+          ),
+          child: Center(
+            child: Text(
+              '$id',
+              style: TextStyle(
+                color: Colors.white
+              ),
+            ),
+          )
+        ),
+       Center(
+         child: Padding(
+           padding: EdgeInsets.only(top: 10.0),
+           child: Text(
+              '$text',
+              style: TextStyle(
+                fontSize: 14.0,
+                color: step == id ? Colors.black : Colors.grey,
+                fontFamily: 'PingFang SC'
+              ),
+            ),
+           )
+         )
+       ], 
+      )
     );
   }
 }

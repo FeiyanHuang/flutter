@@ -34,6 +34,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
+      backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Container(
         margin: EdgeInsets.only(top: 60, left: 30, right: 30),
@@ -50,7 +51,7 @@ class _LoginPageState extends State<LoginPage> {
               decoration: BoxDecoration(
                 border: Border(
                   bottom: BorderSide(
-                    color: Color.fromRGBO(102, 102, 102,1),
+                    color: Color.fromRGBO(151, 151, 151,1),
                     width: 1.0,
                   ),
                 )
@@ -63,7 +64,7 @@ class _LoginPageState extends State<LoginPage> {
                     onTap: (){
                       setState(() {
                         _pwd = true;
-                        print(_pwd);
+                        // print(_pwd);
                       }); 
                     },
                     child: Container(
@@ -91,7 +92,7 @@ class _LoginPageState extends State<LoginPage> {
                     onTap: (){
                       setState(() {
                         _pwd = false;
-                        print(_pwd);
+                        // print(_pwd);
                       }); 
                     },
                     child: Container(
@@ -122,24 +123,27 @@ class _LoginPageState extends State<LoginPage> {
             ): CodeComponents(
               codeSubmit: this.codeSubmit,
             ),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,//开头对齐
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                GestureDetector(
-                    child: Text(
-                    '注册司机',
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: Color.fromRGBO(79, 123, 254,1),
-                    )
-                  ),
-                  onTap: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => RegisterPage()),);
-                  },
-                )
-              ],
-            ),
+            Padding(
+              padding: EdgeInsets.only(top: 20.0),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,//开头对齐
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  GestureDetector(
+                      child: Text(
+                      '注册司机',
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: Color.fromRGBO(79, 123, 254,1),
+                      )
+                    ),
+                    onTap: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => RegisterPage()),);
+                    },
+                  )
+                ],
+              ),  
+            )
           ],
         ),
       ),

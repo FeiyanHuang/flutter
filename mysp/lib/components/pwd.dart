@@ -29,8 +29,17 @@ class _PwdComponentsState extends State<PwdComponents> with SingleTickerProvider
                   controller: _userphone,
                   decoration: InputDecoration(
                     contentPadding: EdgeInsets.all(10.0),
-                    labelText: '请输入手机号',
-                    
+                    hintText: '请输入手机号',
+                    hintStyle: TextStyle(
+                      color: Color.fromRGBO(187, 187, 187, 1),
+                      fontSize: 16.0
+                    ),
+                    enabledBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Color.fromRGBO(151, 151, 151, 1),
+                        width: 1.0
+                      )
+                    )
                   ),
                 )
               )
@@ -45,73 +54,71 @@ class _PwdComponentsState extends State<PwdComponents> with SingleTickerProvider
                   obscureText: true,
                   decoration: InputDecoration(
                     contentPadding: EdgeInsets.all(10.0),
-                    labelText: '请输入密码',
+                    hintText: '请输入密码',
+                    hintStyle: TextStyle(
+                      color: Color.fromRGBO(187, 187, 187, 1),
+                      fontSize: 16.0
+                    ),
+                    enabledBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Color.fromRGBO(151, 151, 151, 1),
+                        width: 1.0
+                      )
+                    )
                   ),
                 )
               )
             ],
           ),
+          Padding(
+            padding: EdgeInsets.only(top: 10.0, bottom: 30.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: <Widget>[
+                GestureDetector(
+                  onTap: (){
+                    Navigator.push(context, new MaterialPageRoute(builder: (context) => new PasswordPage()));
+                    // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => PasswordPage()),);
+                  },
+                  child: Text(
+                    '忘记密码？',
+                    style: TextStyle(
+                      color: Color.fromRGBO(102, 102, 102, 1),
+                      fontSize: 16.0
+                    ),
+                  ),
+                )
+              ],
+            ),
+          ),
           Row(
             children: <Widget>[
               Expanded(
-                child: 
-                  Padding(padding: EdgeInsets.fromLTRB(10.0, 10.0, 0.0, 10.0),)
-              ),
-            ],
-          ),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.end,//开头对齐
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: <Widget>[
-              GestureDetector(
-                onTap: (){
-                  Navigator.push(context, new MaterialPageRoute(builder: (context) => new PasswordPage()));
-                  // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => PasswordPage()),);
-                },
-                child: Text(
-                  '忘记密码？',
-                ),
-              )
-            ],
-          ),
-          Row(
-            children: <Widget>[
-              new Expanded(
-                child: 
-                  Padding(padding: new EdgeInsets.fromLTRB(10.0, 10.0, 0.0, 10.0),)
-              ),
-            ],
-          ),
-          Row(
-            children: <Widget>[
-              new Expanded(child:
-                new RaisedButton(
+                child: RaisedButton(
                   onPressed: (){
                     _pwdSubmit();
                   },
-                  child: new Padding(padding: new EdgeInsets.fromLTRB(10.0, 10.0, 0.0, 10.0),
-                  child: new Text(  
-                      "登录", 
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: Colors.white
-                        )
-                    ),
+                  child: Text(  
+                    "登录", 
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.white
+                    )
                   ),
                   color: Color.fromRGBO(79, 123, 254,1),
+                  shape: RoundedRectangleBorder(
+                    side: BorderSide(
+                      color: Color.fromRGBO(151, 151, 151, 1),
+                      width: 1.0,
+                    )
+                  ),
+                  elevation: 6,
+                  padding: EdgeInsets.only(top: 16.0, bottom: 16.0),
                   // borderRadius: BorderRadius.circular(20.0),
                 ),
               ),
             ],
-          ),
-          Row(
-            children: <Widget>[
-              new Expanded(
-                child: 
-                  Padding(padding: new EdgeInsets.fromLTRB(10.0, 10.0, 0.0, 10.0),)
-              ),
-            ],
-          ),
+          )
         ],
       ),
     );
