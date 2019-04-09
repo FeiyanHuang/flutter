@@ -1,16 +1,12 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
+import './photo.dart';
 
 class firstStep extends StatelessWidget{
   TextEditingController username = new TextEditingController();
   TextEditingController idcard = new TextEditingController();
 
-  // firstStep({Key key, this.callback}): super(key: key);
-  firstStep({Key key, this.step, this.change}): super(key: key);
+  firstStep({Key key, this.change}): super(key: key);
 
-  // final callback;
-  final step;
   Function change;
 
   @override
@@ -86,29 +82,9 @@ class firstStep extends StatelessWidget{
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    // _image == null ?  imageBtn():Image.file(_image),
-                    GestureDetector(
-                      child: Container(
-                        width: 80.0,
-                        height: 80.0,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(4.0)),
-                          border: Border.all(color: Colors.grey)
-                        ),
-                        child: Text('身份证反面'),
-                      ),
-                    ),
-                    GestureDetector(
-                      child: Container(
-                        width: 80.0,
-                        height: 80.0,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(4.0)),
-                          border: Border.all(color: Colors.grey)
-                        ),
-                        child: Text('驾驶证'),
-                      ),
-                    ),
+                    PhotoBox(content: '身份证正面'),
+                    PhotoBox(content: '身份证反面'),
+                    PhotoBox(content: '驾驶证'),
                   ],
                 ),
                 Padding(padding: EdgeInsets.all(10.0),),

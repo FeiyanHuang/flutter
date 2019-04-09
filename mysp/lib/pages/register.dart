@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../components/step1.dart';
-// import '../components/rstep.dart';
+import '../components/step2.dart';
+import '../components/step3.dart';
 
 class RegisterPage extends StatefulWidget{
   @override
@@ -9,8 +10,10 @@ class RegisterPage extends StatefulWidget{
 
 class _RegisterPageState extends State<RegisterPage> with SingleTickerProviderStateMixin{
   int step = 1;
-  String username;
-  String idcard;
+  String userName;
+  String idCard;
+  int carLength;
+  int carWeight;
 
   @override
   void initState() {
@@ -22,11 +25,19 @@ class _RegisterPageState extends State<RegisterPage> with SingleTickerProviderSt
     super.dispose();
   }
 
-  void onDataChange(val) {
+  void first(val) {
     setState(() {
-      username = val['username'];
-      idcard = val['idcard'];
+      userName = val['username'];
+      idCard = val['idcard'];
       step = 2;
+    });
+  }
+
+  void second(val) {
+    setState(() {
+      carLength = val['carLength'];
+      carWeight = val['carWeight'];
+      step = 3;
     });
   }
 
@@ -74,7 +85,12 @@ class _RegisterPageState extends State<RegisterPage> with SingleTickerProviderSt
               )
             ),
             Container(
-              child: step == 1 ? firstStep(step: step,change: (val) => onDataChange(val)): (step == 2 ? firstStep() : firstStep()),
+              child: step == 1 ? 
+                firstStep(change: (val) => first(val)) : 
+                (step == 2 ? 
+                  secondStep(change: (val) => second(val)) : 
+                  thridStep()
+                ),
             ),
           ],
         ),
