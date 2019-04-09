@@ -37,13 +37,21 @@ class _PhotoBoxState extends State<PhotoBox> with SingleTickerProviderStateMixin
         getImage();
       },
       child: Container(
-        width: 80.0,
-        height: 80.0,
+        width: 100.0,
+        height: 96.0,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(4.0)),
-          border: Border.all(color: Colors.grey)
+          border: Border.all(
+            color: Colors.grey,
+            style: BorderStyle.none
+          )
         ),
-        child: Text(widget.content),
+        child: Column(
+          children: <Widget>[
+            Icon(Icons.photo_camera),
+            Text(widget.content),
+          ],
+        ),
       ),
     ) : Image.file(_image);
   }
