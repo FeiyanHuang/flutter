@@ -86,10 +86,10 @@ class _RegisterPageState extends State<RegisterPage> with SingleTickerProviderSt
             ),
             Container(
               child: step == 1 ? 
-                firstStep(change: (val) => first(val)) : 
+                FirstStep(change: (val) => first(val)) : 
                 (step == 2 ? 
-                  secondStep(change: (val) => second(val)) : 
-                  thridStep()
+                  SecondStep(change: (val) => second(val)) : 
+                  ThridStep()
                 ),
             ),
           ],

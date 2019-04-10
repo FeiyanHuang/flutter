@@ -1,13 +1,11 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import './photo.dart';
 
-class secondStep extends StatelessWidget{
+class SecondStep extends StatelessWidget{
   TextEditingController carLength = new TextEditingController();
   TextEditingController carWeight = new TextEditingController();
 
-  secondStep({Key key, this.change}): super(key: key);
+  SecondStep({Key key, this.change}): super(key: key);
 
   Function change;
 

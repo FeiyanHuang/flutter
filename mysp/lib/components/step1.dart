@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import './photo.dart';
 
-class firstStep extends StatelessWidget{
+class FirstStep extends StatelessWidget{
   TextEditingController username = new TextEditingController();
   TextEditingController idcard = new TextEditingController();
 
-  firstStep({Key key, this.change}): super(key: key);
+  FirstStep({Key key, this.change}): super(key: key);
 
-  Function change;
+  final Function change;
 
   @override
   Widget build(BuildContext context){
