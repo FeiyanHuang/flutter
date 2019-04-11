@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:percent_indicator/percent_indicator.dart';
 import '../model/user.dart';
 import 'package:provide/provide.dart';
 import './login.dart';
@@ -32,38 +33,40 @@ class _MyPageState extends State<MyPage> with SingleTickerProviderStateMixin{
               margin: EdgeInsets.only(top: 20.0),
               padding: EdgeInsets.all(20.0),
               color: Colors.white,
-              child: new Column(
-                crossAxisAlignment: CrossAxisAlignment.start,//开头对齐
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: <Widget>[
-                  new Text(
-                    '周司机',
-                    style: new TextStyle(
-                      color: Colors.black,
-                      fontSize: 26.0,
+              child: Provide<UserModel>(builder: (context, child,model){
+                return new Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,//开头对齐
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: <Widget>[
+                    new Text(
+                      "${model.info?.name}",
+                      style: new TextStyle(
+                        color: Colors.black,
+                        fontSize: 26.0,
+                      ),
                     ),
-                  ),
-                  new Row(
-                    children: <Widget>[
-                      new Text(
-                        '浙A-Y262',
-                        style: new TextStyle(
-                          color: Colors.black,
-                          fontSize: 14.0,
+                    new Row(
+                      children: <Widget>[
+                        new Text(
+                          '浙A-Y262',
+                          style: new TextStyle(
+                            color: Colors.black,
+                            fontSize: 14.0,
+                          ),
                         ),
-                      ),
-                      new  Padding(padding: new EdgeInsets.only(right: 40)),
-                      new Text(
-                        '高低平板',
-                        style: new TextStyle(
-                          color: Colors.black,
-                          fontSize: 14.0,
+                        new  Padding(padding: new EdgeInsets.only(right: 40)),
+                        new Text(
+                          '高低平板',
+                          style: new TextStyle(
+                            color: Colors.black,
+                            fontSize: 14.0,
+                          ),
                         ),
-                      ),
-                    ],
-                  )
-                ],
-              ),
+                      ],
+                    )
+                  ],
+                );
+              })
             ),
             new Padding(padding: EdgeInsets.all(10.0),),
             // user info
@@ -158,7 +161,20 @@ class _MyPageState extends State<MyPage> with SingleTickerProviderStateMixin{
                   )
                 ],
               ),
-            )
+            ),
+            Padding(
+              padding: EdgeInsets.all(15.0),
+              child: new LinearPercentIndicator(
+                width: MediaQuery.of(context).size.width - 50,
+                animation: true,
+                lineHeight: 20.0,
+                animationDuration: 2500,
+                percent: 0.8,
+                center: Text("80.0%"),
+                linearStrokeCap: LinearStrokeCap.roundAll,
+                progressColor: Colors.green,
+              ),
+            ),
           ],
         ),
       )
