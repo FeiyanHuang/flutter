@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import './map.dart';
+import 'package:flutter_amap/flutter_amap.dart';
 
-void main() => runApp(MyApp());
+void main(){
+  FlutterAmap.setApiKey("0787b16ca4fd97815b1d354571e9f9c1");
+  runApp(new MyApp());
+}
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
