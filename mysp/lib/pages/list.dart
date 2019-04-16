@@ -74,10 +74,31 @@ class _ListPageState extends State<ListPage> with SingleTickerProviderStateMixin
       ),
       body: TabBarView(
         controller: controllerTop,
-        children: myTabs.map((Tab tab){
-          return OrderItem(title: tab.text);
-        }).toList(),
-      )
+          children:          
+          myTabs.map((Tab tab){
+            return OrderList(title: tab.text);
+          }).toList(),
+        ),
+      // body: Column(
+      //   children: <Widget>[
+      //     FloatingActionButton(
+      //       onPressed: (){
+      //         print('button click');
+      //       },
+      //       foregroundColor: Colors.white,
+      //       backgroundColor: Colors.amber,
+      //       child: new Icon(Icons.add),
+      //     ),
+      //     Container(
+      //       child: TabBarView(
+      //         controller: controllerTop,
+      //         children: myTabs.map((Tab tab){
+      //           return OrderItem(title: tab.text);
+      //         }).toList(),
+      //       )
+      //     )
+      //   ],
+      // ),
     );
   }
 }

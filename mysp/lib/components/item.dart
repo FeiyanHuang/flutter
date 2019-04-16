@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'add.dart';
 
-class OrderItem extends StatefulWidget{
-  OrderItem({Key key, this.title}):super(key:key);
+class OrderList extends StatefulWidget{
+  OrderList({Key key, this.title}):super(key:key);
   final String title;
 
   @override
-  _OrderItemState createState() => new _OrderItemState();
+  _OrderListState createState() => new _OrderListState();
 }
 
-class _OrderItemState extends State<OrderItem>{
+class _OrderListState extends State<OrderList>{
 // @override
 //   void initState() {
 //     super.initState();
@@ -73,15 +74,43 @@ class _OrderItemState extends State<OrderItem>{
     });
   } 
 
+  void add(){
+    showDialog<Null>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return OrderAdd();
+      }
+    ).then((val) {
+        print(val);
+    });
+  }
+  
   @override
   Widget build(BuildContext context) {
     List<Widget> children = new List<Widget>();
+
     for(int i=1; i<10; i++){
       children.add(item(context));
     }
 
-    return ListView(
-      children: children
+    return Stack(
+      children: <Widget>[
+        ListView(
+          children: 
+            children
+        ),
+        Positioned(
+          top: 260.0,
+          left: 260.0,
+          child: FloatingActionButton(
+            onPressed: add,
+            foregroundColor: Colors.white,
+            backgroundColor: Colors.amber,
+            child: new Icon(Icons.add),
+          ),
+        )
+      ],
     );
   }
 
