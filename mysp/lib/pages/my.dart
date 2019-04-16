@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/percent_indicator.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../model/user.dart';
 import 'package:provide/provide.dart';
 import './login.dart';
+import 'dart:convert';
 
 class MyPage extends StatefulWidget{
   @override
@@ -11,10 +13,13 @@ class MyPage extends StatefulWidget{
 
 class _MyPageState extends State<MyPage> with SingleTickerProviderStateMixin{
   TabController controller;
+  User userinfo;
+
   @override
   void initState() {
     super.initState();
     controller = new TabController(vsync: this, length: 2);
+    getUser();
   }
 
   @override
@@ -22,6 +27,24 @@ class _MyPageState extends State<MyPage> with SingleTickerProviderStateMixin{
     controller.dispose();
     super.dispose();
   }
+
+  void getUser() async{
+     userinfo =  await getLocalUser();
+  }
+
+  Future<User> getLocalUser() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String user = prefs.getString("user");
+    var info = json.decode(user);
+
+    setState(() {
+      userinfo = User.fromJson(info["user"]);
+    });
+
+
+    return User.fromJson(info["user"]);
+  }
+
   @override
   Widget build(BuildContext context){
     return Scaffold(
@@ -39,7 +62,7 @@ class _MyPageState extends State<MyPage> with SingleTickerProviderStateMixin{
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
                     new Text(
-                      "${model.info?.name}",
+                      userinfo != null ? userinfo.name : "未登入",
                       style: new TextStyle(
                         color: Colors.black,
                         fontSize: 26.0,
@@ -91,7 +114,7 @@ class _MyPageState extends State<MyPage> with SingleTickerProviderStateMixin{
                         new Align(
                           alignment: Alignment.topRight,
                           child: new Text(
-                            '11111111111',
+                            userinfo != null ? userinfo.phone.toString().replaceRange(3, 7, "****") : "未登入",
                             textAlign: TextAlign.right,
                             style: new TextStyle(
                               color: Colors.red

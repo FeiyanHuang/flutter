@@ -17,12 +17,12 @@ class _ListPageState extends State<ListPage> with SingleTickerProviderStateMixin
   @override
   void initState() {
     super.initState();
-    controllerTop = new TabController(vsync: this, length: 3);
+    controllerTop = new TabController(vsync: this, length: myTabs.length);
   }
 
   @override
   void dispose() {
-    // controllerTop.dispose();
+    controllerTop.dispose();
     super.dispose();
   }
   

@@ -23,7 +23,8 @@ class UserModel with ChangeNotifier {
       await prefs.setString('user', json.encode({
         "user":{
           'name': user.name,
-          'password':user.password
+          'password':user.password,
+          'phone': user.phone
         }
       }));
 
